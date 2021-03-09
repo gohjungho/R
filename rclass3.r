@@ -56,8 +56,3 @@ x <- c("a","b")
 
 # csv()는 .을 사용 
 # excel()은 _를 사용 
-
-
-
-x <- read.csv("reservation_r_csv.csv")
-head(x)
