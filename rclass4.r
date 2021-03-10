@@ -24,6 +24,7 @@ write_xlsx(reservation_r_excel, "excel_output.xlsx")
 # save() load() 
 
 x <- c(1,2,3)
+
 y <- c(4,5,6)
 
 save(x,y,file = "save.Rdata") # x, y의 값 저장
@@ -38,6 +39,11 @@ x <- c(1, 2, 3)
 y <- c(4, 5, 6)
 z <- c(7, 8, 9)
 save(list = ls(), file = "save2.Rdata") # 현재 변수들을 저장
+
+
+# R 메모리에 있는 모든 변수 삭제하기 
+rm(list = ls()) # rm()은 변수를 삭제하는 함수, ls()는 모든 목록 이름을 반환하는 함수 
+
 
 # sink() cat()
 
@@ -74,6 +80,7 @@ str(iris) # 데이터 구조 보기
 # 데이터의 자료형과 데이터 구조를 확인하는 함수들
 
 is.na() # 데이터가 NA(결측치)인지 확인, 개별 데이터 값에 대해 TRUE/FALSE를 반환. TRUE가 나오면 NA. is.na(x)
+## 분명 NA는 문자이나 숫자의 일종으로 취급한다.
 is.null() # 데이터셋이 null인지 확인. is.null(x)
 is.numeric() # 데이터셋이 숫자형인지 확인. is.numeric(x)
 is.character() # 데이터셋이 문자형인지 확인. is.character(x)
@@ -84,4 +91,6 @@ is.data.frame() # 데이터 구조가 데이터 프레임인지 확인. is.data.
 is.na(iris) # 전부 FALSE 출력 
 is.factor(iris) # FALSE 
 is.data.frame(iris) # TRUE 
+
+
 
