@@ -53,23 +53,3 @@ sd(weight) # 표준편차 = 분산에 제곱근 씌운 값
 # 즉, 유의 수준(확률)이 5%보다 낮으면 기존의 가설(귀무 가설)을 기각시키고 내 가설(대립 가설)을 채택할 수 있다. 
 
 
-
-
-# 더 맛있는 요리하기: 멤버십 기획 프로젝트
-# 빈도 분석(frequency analysis): 데이터 빈도나 분포 등 대략적인 특성을 알아보는 분석 방법
-
-table(reservation_r$branch)
-head(reservation_r)
-
-no_cancel_data <- reservation_r %>% filter(cancel == "N")
-table(no_cancel_data$branch)
-
-df_f_join_1 <- inner_join(reservation_r, order_info_r, by = "reserv_no")
-df_f_join_2 <- inner_join(df_f_join_1, item_r, by = "item_id")
-head(df_f_join_2)
-
-df_branch_sales <- df_f_join_2 %>%
-                   filter(branch == "강남" | branch == "마포" | branch == "서초") %>%
-                   group_by(branch, product_name) %>%           # 부서 이름과 메뉴 이름으로 그룹화
-                   summarise(sales_amt = sum(sales) / 1000)     # 매출 합산
-df_branch_sales
