@@ -73,3 +73,16 @@ df_table_join_3 <- df_table_join_2 %>%
 df_idp_var <- df_table_join_3   # 독립 변수
 
 df_idp_var                      # 독립 변수 확인(142행)
+
+
+# 데이터 처리하기: 최종 정리
+
+# 독립 변수 데이터셋(①-2)에 종속 변수 데이터셋(①-1) 이너 조인
+df_final_data <- inner_join(df_idp_var, df_dpd_var, by = "customer_id")
+
+# 의사 결정 나무 함수를 사용하려고 열 구조를 팩터형으로 바꿈
+df_final_data$sex_code <- as.factor(df_final_data$sex_code)
+df_final_data$steak_order <- as.factor(df_final_data$steak_order)
+
+df_final_data <- df_final_data[, c(2:6)]   # 의사 결정 나무에 필요한 열만 선택
+df_final_data                              # 최종 분석용 데이터셋 확인
