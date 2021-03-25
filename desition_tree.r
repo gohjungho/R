@@ -68,6 +68,7 @@ df_table_join_3 <- df_table_join_2 %>%
     group_by(customer_id, sex_code) %>%                         # ⓑ
     summarise(visit_sum = n_distinct(reserv_no), visitor_sum = sum(visitor_cnt), sales_sum = sum(sales_sum) / 1000) %>%     # ⓒ
     arrange(customer_id)
+    # distinct(): 중복이 아닌 값(고유한 값)을 카운팅하는 함수. 여기에서는 중복이 아닌(고유한) 주문 예약 번호. 즉, 방문 횟수
 
 df_idp_var <- df_table_join_3   # 독립 변수
 
