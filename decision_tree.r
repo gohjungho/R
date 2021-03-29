@@ -86,3 +86,39 @@ df_final_data$steak_order <- as.factor(df_final_data$steak_order)
 
 df_final_data <- df_final_data[, c(2:6)]   # 의사 결정 나무에 필요한 열만 선택
 df_final_data                              # 최종 분석용 데이터셋 확인
+
+##############################################################
+
+# 패키지 설치 
+# 쥬피터의 경우 R은 상관없지만 파이썬은 패키지 설치할 때 앞에 !를 붙여줘야한다.
+install.packages("rpart") # 
+install.packages("caret") # 예측과 머신러닝 함수들. 훈련과 실험 데이터셋 나누기
+install.packages("e1071") # 모델의 정확도를 계산 
+
+library(rpart)
+library(caret)
+library(e1071)
+
+# 난수를 생성할 때 계속 무작위수를 생성하지 않고 1만 번대 값을 고정으로 가져옴
+set.seed(10000)
+# 80% 데이터는 train을 위해 준비하고, 20% 데이터는 test를 위해 준비함
+train_data <- createDataPartition(y = df_final_data$steak_order, p = 0.8, list = FALSE)
+train <- df_final_data[train_data, ]
+test <- df_final_data[train_data, ]
+# rpart를 사용해서 의사 결정 나무 생성
+decision_tree <- rpart(steak_order~., data = train)
+# decision_tree 내용 확인
+decision_tree
+
+# 만들어진 모델의 정확도를 확인
+predicted <- predict(decision_tree, test, type = 'class')
+confusionMatrix(predicted, test$steak_order)
+
+plot(decision_tree, margin = 0.1)   # 의사 결정 나무 그리기
+text(decision_tree)                 # 의사 결정 나무 텍스트 쓰기
+ 
+# 예쁘게 그리기 
+install.packages("rattle")  # 패키지 설치
+library(rattle)             # 패키지 로딩
+fancyRpartPlot(decision_tree)    # 의사 결정 나무 깔끔하게 그리기
+
